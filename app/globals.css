@@ -1,42 +1,98 @@
+/* app/globals.css */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background-color: #111827; /* Tailwind gray-900 */
+  --card-background: #1f2937; /* Tailwind gray-800 */
+  --text-color: #f3f4f6; /* Tailwind gray-100 */
+  --text-secondary-color: #9ca3af; /* Tailwind gray-400 */
+  
+  --primary-accent: #3b82f6; /* Tailwind blue-500 */
+  --primary-accent-rgb: 59, 130, 246;
+
+  --warning-accent: #f59e0b; /* Tailwind amber-500 (for 'mixed' type) */
+  --danger-accent: #ef4444; /* Tailwind red-500 (for 'closed' type) */
+  --danger-accent-rgb: 239, 68, 68; /* Added for the JS workaround */
+  
+  --success-accent: var(--primary-accent); /* Using primary for 'community_reversal' for consistency */
+  --subtle-accent: #6b7280; /* Tailwind gray-500 (can be used for 'subversion' or subtle highlights) */
+
+  --border-color: #374151; /* Tailwind gray-700 */
+  
+  --font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --code-font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* For JS workaround to get RGB values for rgba() backgrounds */
+  --rgb-card-background: 31, 41, 55; /* Default, will be updated by JS */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Prevent horizontal scroll from parallax or other elements */
 }
 
-* {
+*, *::before, *::after {
   box-sizing: border-box;
-  padding: 0;
+}
+
+textarea, select, input, button {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: inherit;
   margin: 0;
+  padding: 0.5em 0.8em; /* Default padding for form elements */
+  border: 1px solid var(--border-color);
+  background-color: var(--card-background); /* Use card bg for form elements */
+  color: inherit;
+  border-radius: 4px; /* Default border radius */
+}
+textarea:focus, select:focus, input:focus {
+  outline: 2px solid var(--primary-accent);
+  outline-offset: 1px;
+  border-color: var(--primary-accent);
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+
+button, input[type='button'], input[type='submit'], input[type='reset'] {
+  cursor: pointer;
+  border: none; /* Buttons get specific styling, reset generic border */
+  background-color: var(--primary-accent); /* Default button bg */
+  color: var(--text-color); /* Default button text */
+  padding: 0.6em 1.2em; /* Default button padding */
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+button:hover, input[type='button']:hover, input[type='submit']:hover, input[type='reset']:hover {
+  background-color: color-mix(in srgb, var(--primary-accent) 85%, black);
 }
 
 a {
-  color: inherit;
+  color: var(--primary-accent);
   text-decoration: none;
 }
+a:hover {
+  text-decoration: underline;
+}
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  line-height: 1.3;
+  font-weight: 600;
 }

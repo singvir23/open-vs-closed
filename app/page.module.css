@@ -1,168 +1,355 @@
-.page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
+/* page.module.css */
 
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
-  align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
-  gap: 64px;
-  font-family: var(--font-geist-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-  .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-  }
-}
-
-.main {
+.pageContainer {
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
+  min-height: 100vh;
+  padding: 0; /* No padding, items will manage their own */
+  position: relative; /* For potential full-page parallax layers */
 }
 
-.main ol {
-  font-family: var(--font-geist-mono);
-  padding-left: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  list-style-position: inside;
+.pageHeader {
+  text-align: center;
+  padding: 80px 20px 60px 20px; /* More top padding */
+  background-color: transparent; /* Header blends with page background */
+  position: relative; /* For z-index if needed */
+  z-index: 10;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.main li:not(:last-of-type) {
-  margin-bottom: 8px;
+.pageTitle {
+  font-size: 2.8rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: var(--text-color);
 }
 
-.main code {
-  font-family: inherit;
-  background: var(--gray-alpha-100);
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-weight: 600;
+.pageSubtitle { /* Curatorial Statement */
+  font-size: 1.15rem;
+  max-width: 700px;
+  margin: 0 auto;
+  color: var(--text-secondary-color);
+  line-height: 1.7;
 }
 
-.ctas {
+.gallery { /* Renamed from galleryGrid */
+  width: 100%;
   display: flex;
-  gap: 16px;
+  flex-direction: column;
+  align-items: center; /* Center items horizontally */
 }
 
-.ctas a {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
-  border: none;
-  border: 1px solid transparent;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
-  cursor: pointer;
+.galleryItem {
+  width: 100%;
+  max-width: 1100px; /* Max width for items */
+  margin-bottom: 80px; /* Space between items */
+  padding: 40px; /* Padding inside the item card */
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 0 1px var(--border-color); /* Subtle border with shadow */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 40px; /* Gap between columns */
+  align-items: flex-start; /* Align content to the top of columns */
+  position: relative;
+  overflow: hidden; /* Important for pseudo-element parallax */
+}
+
+/* Parallax background pseudo-elements */
+.galleryItem::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-attachment: fixed;
+  background-position: center center;
+  background-repeat: no-repeat; /* Changed to no-repeat, assuming image */
+  background-size: cover; /* Cover the area */
+  z-index: 0;
+  opacity: 0.1; /* Default subtle opacity for parallax images */
+  transition: opacity 0.3s ease;
+}
+.galleryItem:hover::before {
+    opacity: 0.15; /* Slightly more visible on hover */
+}
+
+/* Specific parallax backgrounds (REPLACE THESE with actual image URLs) */
+/* These are more abstract patterns for demonstration */
+.genesis::before, .community_reversal::before {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18.277L24.402 10h51.196L89 18.277V30H11v-11.723zM11 40h78v30H11V40zm0 38.277L24.402 70h51.196L89 78.277V90H11V78.277z' fill='%233b82f6' fill-opacity='0.3' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.07;
+}
+.mixed::before {
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f59e0b' fill-opacity='0.06'%3E%3Cpath d='M0 0h80v80H0z'/%3E%3Cpath d='M20 20h40v40H20z' opacity='.5'/%3E%3Cpath d='M25 25h30v30H25z' opacity='.4'/%3E%3Cpath d='M30 30h20v20H30z' opacity='.3'/%3E%3Cpath d='M35 35h10v10H35z' opacity='.2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 0.06;
+}
+.closed::before {
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='52' viewBox='0 0 52 52' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26 0C11.64 0 0 11.64 0 26s11.64 26 26 26 26-11.64 26-26S40.36 0 26 0zm0 48C13.852 48 4 38.148 4 26S13.852 4 26 4s22 9.852 22 22-9.852 22-22 22zm0-6a2 2 0 0 1-2-2V16a2 2 0 0 1 4 0v24a2 2 0 0 1-2 2zm0-30a2 2 0 1 1 0-4 2 2 0 0 1 0 4z' fill='%23ef4444' fill-opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.05;
+}
+.subversion::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236b7280' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.06;
+}
+
+
+/* Item Content (Left Column) and Label (Right Column) must be above the ::before */
+.itemContent, .itemLabel {
+  position: relative; /* To sit on top of the ::before pseudo-element */
+  z-index: 1;
+}
+
+.itemContent { /* Was interactiveArea, now for the left column */
+  border-radius: 8px;
+  min-height: 300px; /* Ensure some height */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
+  flex-direction: column;
+  /* Added a subtle inner background for the interactive part to distinguish from parallax */
+  background-color: rgba(var(--rgb-card-background), 0.7); /* Use dynamic var */
+  backdrop-filter: blur(2px); /* Slightly blur the parallax behind content */
+  padding: 20px; /* Padding for the content inside this box */
+  box-shadow: 0 0 15px rgba(0,0,0,0.2); /* Inner shadow for depth */
+}
+
+.itemLabel { /* For the gallery label (title + description) on the right */
+  padding: 10px; /* Some internal padding for the text block */
+  /* Semi-transparent bg to see parallax was here, removed for clarity, can be added back if desired */
+  /* background-color: rgba(var(--rgb-card-background), 0.5); */
+  /* backdrop-filter: blur(3px); */
+  border-radius: 8px;
+  white-space: pre-line; /* Preserve newlines from the description string */
+}
+
+.itemTitle {
+  font-size: 1.5rem; /* Adjusted for the longer titles */
+  color: var(--text-color); 
+  margin-bottom: 15px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+/* Type-specific title accents (can be applied directly or via narrativeType class) */
+.genesis .itemTitle { color: var(--primary-accent); }
+.mixed .itemTitle { color: var(--warning-accent); }
+.closed .itemTitle { color: var(--danger-accent); }
+.community_reversal .itemTitle { color: var(--success-accent); }
+.subversion .itemTitle { color: var(--subtle-accent); }
+
+
+.itemDescription {
+  font-size: 0.95rem; /* Slightly smaller for denser text */
+  color: var(--text-secondary-color);
+  line-height: 1.7;
+}
+.itemDescription p { /* If you wrap paragraphs in <p> inside description */
+    margin-bottom: 1em;
+}
+.itemDescription p:last-child {
+    margin-bottom: 0;
+}
+
+.interactiveLabel { /* For labels within interactive components */
+  display: block;
+  font-size: 0.9rem;
   font-weight: 500;
+  margin-bottom: 10px;
+  color: var(--text-secondary-color);
 }
 
-a.primary {
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
+.interactiveHint {
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--text-secondary-color);
+    opacity: 0.8;
+    margin-top: 15px;
+    margin-bottom: 5px;
 }
 
-a.secondary {
-  border-color: var(--gray-alpha-200);
-  min-width: 158px;
+.codeEditor, .xmlEditor {
+  width: 100%;
+  background-color: var(--background-color); /* Match page background for depth */
+  color: #d1d5db; /* Tailwind gray-300 */
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 12px;
+  font-family: var(--code-font-family);
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  resize: vertical;
+  min-height: 150px;
+  flex-grow: 1; /* Allow editor to take space */
 }
 
-.footer {
-  grid-row-start: 3;
+.actionButton { /* Overrides global button style for specific use */
+  background-color: var(--primary-accent);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 5px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  margin-top: 15px;
+  align-self: flex-start;
+  border: none;
+}
+.actionButton:hover {
+  background-color: color-mix(in srgb, var(--primary-accent) 85%, black);
+}
+
+/* Linux Specific */
+.interactiveConsole {
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+  flex-grow: 1; 
+  height: 100%;
+}
+.consoleOutput {
+  margin-top: 12px;
+  background-color: color-mix(in srgb, var(--background-color) 90%, black); /* Even darker for console */
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  max-height: 120px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary-color);
 }
 
-.footer a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Android Specific */
+.androidHomeScreen { display: flex; flex-direction: column; height: 100%; }
+.appGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+  gap: 12px;
+  margin-top: 10px;
+  flex-grow: 1;
+}
+.appIcon {
+  background-color: rgba(var(--primary-accent-rgb), 0.05);
+  border: 1px solid var(--border-color);
+  border-radius: 10px; 
+  padding: 10px 8px;
+  aspect-ratio: 1 / 1; 
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  position: relative;
+}
+.appIcon:hover {
+  background-color: rgba(var(--primary-accent-rgb), 0.15);
+  border-color: var(--primary-accent);
+  transform: translateY(-2px);
+}
+.appIconVisual { font-size: 1.8rem; line-height: 1; }
+.appIconLabel { font-size: 0.7rem; margin-top: 6px; color: var(--text-secondary-color); text-align: center; }
+.systemAppLock { position: absolute; top: 5px; right: 5px; font-size: 0.6rem; opacity: 0.6; }
+.androidResetButton {
+    margin-top: auto; 
+    background-color: var(--subtle-accent);
+}
+.androidResetButton:hover { background-color: color-mix(in srgb, var(--subtle-accent) 85%, black); }
+
+/* Wii Specific */
+.wiiMenu { display: flex; flex-direction: column; align-items: center; justify-content: center; flex-grow: 1; gap: 12px; }
+.wiiChannelButton {
+  background-color: var(--subtle-accent);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  width: 80%; max-width: 250px; text-align: center;
+}
+.wiiChannelButton:hover { background-color: color-mix(in srgb, var(--subtle-accent) 85%, black); }
+.wiiDisclaimer {
+    margin-top: 20px; padding: 12px;
+    background-color: rgba(var(--danger-accent-rgb), 0.1); /* Uses dynamic var */
+    border: 1px solid var(--danger-accent);
+    border-radius: 4px; font-size: 0.85rem; text-align: center;
+    color: var(--danger-accent);
 }
 
-.footer img {
-  flex-shrink: 0;
+
+/* Dolphin Specific */
+.dolphinSettings { display: flex; flex-direction: column; gap: 18px; flex-grow: 1; height: 100%; }
+.settingsControls { display: flex; flex-direction: column; gap: 15px; }
+.settingsDropdown { width: 100%; } 
+.checkboxGroup { display: flex; flex-direction: column; gap: 8px; }
+.checkboxLabel { display: flex; align-items: center; cursor: pointer; font-size: 0.9rem; padding: 5px 0; }
+.checkboxLabel input[type="checkbox"] { margin-right: 10px; width: 16px; height: 16px; accent-color: var(--primary-accent); }
+.dolphinPreview {
+  width: 100%; height: 150px;
+  background-color: var(--background-color);
+  border: 1px dashed var(--border-color);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  padding: 10px; margin-top: auto; 
+  color: var(--text-secondary-color);
+}
+.previewText { font-size: 0.9rem; }
+
+
+/* Modal styles */
+.modalOverlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(10, 10, 15, 0.85);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; padding: 20px; backdrop-filter: blur(5px);
+}
+.modalContent {
+  background-color: var(--card-background);
+  padding: 30px 35px; border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  max-width: 500px; width: 100%; position: relative;
+  border: 1px solid var(--border-color);
+  color: var(--text-color); line-height: 1.7;
+  white-space: pre-line; /* Ensure modal text also respects newlines */
+}
+.modalCloseButton {
+  position: absolute; top: 12px; right: 12px; background: none; border: none;
+  color: var(--text-secondary-color); font-size: 1.6rem; cursor: pointer;
+  line-height: 1; padding: 8px; border-radius: 50%;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+.modalCloseButton:hover { color: var(--text-color); background-color: rgba(255,255,255,0.05); }
+
+
+.pageFooter {
+  text-align: center;
+  margin-top: 60px; 
+  padding: 40px 20px;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  color: var(--text-secondary-color);
+  position: relative; 
+  z-index: 5;
 }
 
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+/* Responsive adjustments for two-column layout */
+@media (max-width: 860px) { 
+  .galleryItem {
+    grid-template-columns: 1fr; /* Stack columns */
+    padding: 30px;
   }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
+  .itemContent { /* Interactive content area */
+    padding: 15px; /* Slightly reduce padding when stacked */
   }
-
-  .footer a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  .itemLabel { /* Gallery label (right column) moves below content */
+    margin-top: 30px; 
+    padding: 0; /* Remove padding if it was for side-by-side */
+  }
+  .itemTitle {
+    font-size: 1.35rem; /* Adjust title size when stacked */
+  }
+  .interactiveLabel { 
+     color: var(--text-color);
   }
 }
 
 @media (max-width: 600px) {
-  .page {
-    padding: 32px;
-    padding-bottom: 80px;
-  }
-
-  .main {
-    align-items: center;
-  }
-
-  .main ol {
-    text-align: center;
-  }
-
-  .ctas {
-    flex-direction: column;
-  }
-
-  .ctas a {
-    font-size: 14px;
-    height: 40px;
-    padding: 0 16px;
-  }
-
-  a.secondary {
-    min-width: auto;
-  }
-
-  .footer {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+  .pageHeader { padding: 60px 15px 40px 15px; }
+  .pageTitle { font-size: 2.2rem; }
+  .pageSubtitle { font-size: 1rem; }
+  .galleryItem { padding: 20px; margin-bottom: 60px;}
+  .itemTitle { font-size: 1.25rem; } /* Further adjust for small screens */
+  .itemContent { padding: 10px; }
 }
