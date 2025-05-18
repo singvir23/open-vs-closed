@@ -358,7 +358,7 @@ export default function GalleryPage() {
         
 
         <p className={styles.pageSubtitle}>
-          I tried to create a Minimum Viable Product, or MVP, of my exhibit. My goal was for the viewer to truly feel the difference between open and closed source. I did this by allowing the viewer to tinker with the open-source items much more than the closed source. It highlights the difference between the two and also makes the exhibit interactive, which is a great way to engage viewers. The scripts kinda work, but they aren't 1-1 replicas. That would have been a lot more coding on my part, and it would also be extremely daunting for someone who has never coded. 
+          I tried to create a Minimum Viable Product, or MVP, of my exhibit. My goal was for the viewer to truly feel the difference between open and closed source. I did this by allowing the viewer to tinker with the open-source items much more than the closed source. It highlights the difference between the two and also makes the exhibit interactive, which is a great way to engage viewers. The scripts kinda work, but they aren&apos;t 1-1 replicas. That would have been a lot more coding on my part, and it would also be extremely daunting for someone who has never coded. 
         
           If I had my ideal situation, I would want these script executers to be on the actual machine. For instance, on Android, allow the viewer to interact with an actual Android phone. The devices would have to be signficantly restricted to remain within the scope of the exhibit, but I think it would be amazing to have the device I am referring to.
         </p>
