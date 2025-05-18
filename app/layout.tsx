@@ -1,33 +1,31 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+// import { Inter } from 'next/font/google'; // Example if using Inter
+// import { GeistSans } from 'geist/font/sans'; // Likely unused, causing error
+// import { GeistMono } from 'geist/font/mono'; // Likely unused, causing error
+import './globals.css'; // Your global styles
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const inter = Inter({ subsets: ['latin'] }); // Example
 
 export const metadata: Metadata = {
-  title: 'The Digital Liberation Exhibit', // You can set a default title here
+  title: '🎭 The Digital Liberation Exhibit',
   description: 'A story of control vs. creativity, of walls vs. bridges.',
-}
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="en">
-      {/* If using a Next/font, the className might be on the body: <body className={inter.className}> */}
+      {/* 
+        If using GeistSans: <body className={GeistSans.className}> 
+        If using Inter: <body className={inter.className}>
+        Otherwise, just <body> is fine if fonts are handled entirely by globals.css
+      */}
       <body> 
         {children}
       </body>
     </html>
-  )
+  );
 }
