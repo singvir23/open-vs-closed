@@ -7,8 +7,8 @@ import './globals.css'; // Your global styles
 // const inter = Inter({ subsets: ['latin'] }); // Example
 
 export const metadata: Metadata = {
-  title: '🎭 The Digital Liberation Exhibit',
-  description: 'A story of control vs. creativity, of walls vs. bridges.',
+  title: 'Exhibit',
+  description: '',
 };
 
 export default function RootLayout({
